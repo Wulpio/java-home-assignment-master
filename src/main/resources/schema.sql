@@ -34,6 +34,8 @@ create table EMPLOYEE
         primary key (PERSON_ID, DEPARTMENT_ID),
     constraint EMPLOYEE_PERSON_ID_FK
         foreign key (PERSON_ID) references PERSON (ID),
+    constraint EMPLOYEE_DEPARTMENT_ID_FK
+        foreign key (DEPARTMENT_ID) references DEPARTMENT (ID),
     constraint EMPLOYMENT_TYPE_ID_FK
         foreign key (EMPLOYMENT_TYPE_ID) references EMPLOYMENT_TYPE (ID)
 );

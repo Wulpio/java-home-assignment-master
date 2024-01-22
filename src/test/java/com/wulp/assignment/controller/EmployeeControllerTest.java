@@ -1,5 +1,6 @@
 package com.wulp.assignment.controller;
 
+import com.wulp.assignment.repository.EmployeeRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +23,16 @@ class EmployeeControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    EmployeeRepository employeeRepository;
+
     @DisplayName("should retrieve single employee by ID")
     @Test
     public void testRetrievingOfSingleEmployee() throws Exception {
         mockMvc.perform(get("/employee/1")).andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is("Hasnain Frame")));
     }
+
 
     @DisplayName("should retrieve all active employees")
     @Test

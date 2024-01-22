@@ -1,14 +1,14 @@
 package com.wulp.assignment.repository;
 
 import com.wulp.assignment.model.Employee;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Repository
 public class EmployeeRepository {
     private static final String URL = "jdbc:h2:mem:assignment";
     private static final String USER = "sa";

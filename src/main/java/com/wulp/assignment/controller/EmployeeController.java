@@ -1,7 +1,6 @@
 package com.wulp.assignment.controller;
 
 import com.wulp.assignment.dto.EmployeeDto;
-import com.wulp.assignment.model.Employee;
 import com.wulp.assignment.service.EmployeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

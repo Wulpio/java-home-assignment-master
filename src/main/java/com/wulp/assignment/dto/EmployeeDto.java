@@ -55,4 +55,15 @@ public class EmployeeDto {
     public boolean isActive() {
         return endDate == null;
     }
+
+    @Override
+    public String toString() {
+        return "EmployeeDto{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", departmentName='" + departmentName + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                '}';
+    }
 }

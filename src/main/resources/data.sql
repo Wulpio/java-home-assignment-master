@@ -18,11 +18,11 @@ VALUES (3, 'Rhys Graves', 27);
 INSERT INTO PERSON(ID, NAME, AGE)
 VALUES (4, 'Gwen Velasquez', 32);
 INSERT INTO PERSON(ID, NAME, AGE)
-VALUES (5, 'Kierran Hayden', 28);
+VALUES (5, 'Kieran Hayden', 28);
 INSERT INTO PERSON(ID, NAME, AGE)
 VALUES (6, 'Saif Kent', 34);
 INSERT INTO PERSON(ID, NAME, AGE)
-VALUES (7, 'Khia Boone', 48);
+VALUES (7, 'Kha Boone', 48);
 INSERT INTO PERSON(ID, NAME, AGE)
 VALUES (8, 'Conan Allman', 24);
 INSERT INTO PERSON(ID, NAME, AGE)
@@ -30,23 +30,23 @@ VALUES (9, 'Billie-Jo O`Moore', 58);
 INSERT INTO PERSON(ID, NAME, AGE)
 VALUES (10, 'Johnathan Faulkner', 20);
 INSERT INTO PERSON(ID, NAME, AGE)
-VALUES (11, 'Bea Cresswell', 26);
+VALUES (11, 'Bea Cress well', 26);
 INSERT INTO PERSON(ID, NAME, AGE)
-VALUES (12, 'Douglas Ferreira', 60);
+VALUES (12, 'Douglas Ferrara', 60);
 INSERT INTO PERSON(ID, NAME, AGE)
 VALUES (13, 'Manon Blackwell', 19);
 INSERT INTO PERSON(ID, NAME, AGE)
-VALUES (14, 'Jamaal Blundell', 33);
+VALUES (14, 'Jamaal Blondell', 33);
 INSERT INTO PERSON(ID, NAME, AGE)
 VALUES (15, 'Zac Weston', 38);
 INSERT INTO PERSON(ID, NAME, AGE)
 VALUES (16, 'Laura Paine', 24);
 INSERT INTO PERSON(ID, NAME, AGE)
-VALUES (17, 'Amanpreet Gordon', 48);
+VALUES (17, 'Amaretto Gordon', 48);
 INSERT INTO PERSON(ID, NAME, AGE)
-VALUES (18, 'Caolan Harrison', 24);
+VALUES (18, 'Carolan Harrison', 24);
 INSERT INTO PERSON(ID, NAME, AGE)
-VALUES (19, 'Padraig Mcdonald', 58);
+VALUES (19, 'Padraic Mcdonald', 58);
 INSERT INTO PERSON(ID, NAME, AGE)
 VALUES (20, 'Verity Bob', 20);
 

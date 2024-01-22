@@ -12,14 +12,13 @@ public class Employee {
     private Instant startDate;
     private Instant endDate;
 
-    public Employee(String name, int age, String departmentName, Instant startDate, Instant endDate) {
+    public Employee(Integer id,String name, int age, String departmentName, Instant startDate, Instant endDate) {
         this.name = name;
         this.age = age;
         this.departmentName = departmentName;
         this.startDate = startDate;
         this.endDate = endDate;
     }
-
 
     public String getName() {
         return name;
@@ -59,5 +58,16 @@ public class Employee {
 
     public void setEndDate(Instant endDate) {
         this.endDate = endDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", departmentName='" + departmentName + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                '}';
     }
 }

@@ -1,6 +1,7 @@
 package com.wulp.assignment.controller;
 
 import com.wulp.assignment.dto.EmployeeDto;
+import com.wulp.assignment.model.Employee;
 import com.wulp.assignment.service.EmployeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,14 +35,24 @@ public class EmployeeController {
     }
 
     @GetMapping("/active")
-    public List<EmployeeDto> fetchAllActiveEmployees() {
+    public ResponseEntity<List<EmployeeDto>> fetchAllActiveEmployees() {
+        List<EmployeeDto> activeEmployees = employeeService.getActiveEmployeeByEndDateIsNull();
+        if (activeEmployees.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(activeEmployees, HttpStatus.OK);
+        }
 
-        return List.of();
     }
 
-    @GetMapping("/active/by-department")
-    public Map<String, List<EmployeeDto>> findActiveEmployees() {
-        return Map.of();
+    @GetMapping("/active/{department}")
+    public ResponseEntity<Map<String, List<EmployeeDto>>> fetchActiveEmployeesByDepartment(@PathVariable String department) {
+        Map<String, List<EmployeeDto>> activeEmployees = employeeService.getActiveEmployeesByDepartment(department);
+        if (activeEmployees.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(activeEmployees, HttpStatus.OK);
+        }
     }
 
 }

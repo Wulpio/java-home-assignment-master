@@ -4,7 +4,6 @@ import com.wulp.assignment.repository.EmployeeRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
@@ -17,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@AutoConfigureTestDatabase
+//@AutoConfigureTestDatabase
 class EmployeeControllerTest {
 
     @Autowired
@@ -33,7 +32,6 @@ class EmployeeControllerTest {
                 .andExpect(jsonPath("$.name", is("Hasnain Frame")));
     }
 
-
     @DisplayName("should retrieve all active employees")
     @Test
     public void testRetrievingOfActiveEmployees() throws Exception {
@@ -47,7 +45,6 @@ class EmployeeControllerTest {
         mockMvc.perform(get("/employee/active/by-department")).andDo(print()).andExpect(status().isOk())
 
                 .andExpect(jsonPath("$.length()", is(5)))
-
                 .andExpect(jsonPath("$['Management'].length()", is(1)))
                 .andExpect(jsonPath("$['Technology consulting'].length()", is(9)))
                 .andExpect(jsonPath("$['Quality assurance'].length()", is(3)))

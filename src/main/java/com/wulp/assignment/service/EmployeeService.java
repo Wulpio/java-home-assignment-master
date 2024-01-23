@@ -23,7 +23,6 @@ public class EmployeeService {
     }
 
     public EmployeeDto getEmployeeDTObyId(Integer id) throws SQLException {
-
         Employee employee = employeeRepository.findEmployeeById(id);
         if (employee == null) {
             return null;
@@ -32,7 +31,7 @@ public class EmployeeService {
         }
     }
 
-    private static EmployeeDto convertToDTO(Employee employee) {
+    static EmployeeDto convertToDTO(Employee employee) {
         EmployeeDto employeeDto = new EmployeeDto();
         employeeDto.setName(employee.getName());
         employeeDto.setAge(employee.getAge());
@@ -45,7 +44,9 @@ public class EmployeeService {
     public List<EmployeeDto> getActiveEmployeeByEndDateIsNull() {
         List<Employee> activeEmployees = employeeRepository.findActiveEmployees();
 
-        return activeEmployees.stream().map(EmployeeService::convertToDTO).collect(Collectors.toList());
+        return activeEmployees.stream()
+                .map(EmployeeService::convertToDTO)
+                .collect(Collectors.toList());
     }
 
     public Map<String, List<EmployeeDto>> getActiveEmployeesByDepartment() {

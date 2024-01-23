@@ -1,14 +1,15 @@
 package com.wulp.assignment.repository;
 
 import com.wulp.assignment.model.Employee;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
+
 
 import java.sql.*;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+@Component
 public class EmployeeRepository {
 
 
@@ -69,7 +70,6 @@ public class EmployeeRepository {
         }
         return List.copyOf(activeEmployees);
     }
-
 
     private void mapperDB(List<Employee> activeEmployees, PreparedStatement preparedStatement) throws SQLException {
         try (ResultSet resultSet = preparedStatement.executeQuery()) {

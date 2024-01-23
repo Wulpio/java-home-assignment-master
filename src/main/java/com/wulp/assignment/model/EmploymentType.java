@@ -1,12 +1,12 @@
 package com.wulp.assignment.model;
 
-public class EmployeeType {
+public class EmploymentType {
 
     private Long id;
 
     private  String name;
 
-    public EmployeeType(Long id, String name) {
+    public EmploymentType(Long id, String name) {
         this.id = id;
         this.name = name;
     }

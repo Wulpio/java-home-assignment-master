@@ -1,6 +1,7 @@
 package com.wulp.assignment.controller;
 
 import com.wulp.assignment.dto.EmployeeDto;
+import com.wulp.assignment.model.Employee;
 import com.wulp.assignment.service.EmployeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,9 +45,9 @@ public class EmployeeController {
 
     }
 
-    @GetMapping("/active/{department}")
-    public ResponseEntity<Map<String, List<EmployeeDto>>> fetchActiveEmployeesByDepartment(@PathVariable String department) {
-        Map<String, List<EmployeeDto>> activeEmployees = employeeService.getActiveEmployeesByDepartment(department);
+    @GetMapping("/active/by-department")
+    public ResponseEntity<Map<String, List<EmployeeDto>>> fetchActiveEmployeesByDepartment() {
+        Map<String, List<EmployeeDto>> activeEmployees = employeeService.getActiveEmployeesByDepartment();
         if (activeEmployees.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {

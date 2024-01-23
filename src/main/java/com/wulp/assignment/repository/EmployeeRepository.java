@@ -10,6 +10,8 @@ import java.util.List;
 
 @Repository
 public class EmployeeRepository {
+
+
     private static final String URL = "jdbc:h2:mem:assignment";
     private static final String USER = "sa";
     private static final String PASSWORD = "sa";
@@ -26,22 +28,26 @@ public class EmployeeRepository {
                 preparedStatement.setInt(1, id);
 
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                    if (resultSet.next()) {
-                        Instant startDate = resultSet.getTimestamp("START_DATE").toInstant();
-                        Instant endDate = resultSet.getTimestamp("END_DATE") != null ?
-                                resultSet.getTimestamp("END_DATE").toInstant() : null;
-                        String personName = resultSet.getString("NAME");
-                        int personAge = resultSet.getInt("AGE");
-                        String departmentName = resultSet.getString("DEPARTMENT_NAME");
-
-                        return new Employee(id, personName, personAge, departmentName, startDate, endDate);
-                    }
+                    return mapEmployee(id, resultSet);
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
+    }
 
+    private static Employee mapEmployee(Integer id, ResultSet resultSet) throws SQLException {
+        if (resultSet.next()) {
+            Instant startDate = resultSet.getTimestamp("START_DATE").toInstant();
+            Instant endDate = resultSet.getTimestamp("END_DATE") != null ?
+                    resultSet.getTimestamp("END_DATE").toInstant() : null;
+            String personName = resultSet.getString("NAME");
+            int personAge = resultSet.getInt("AGE");
+            String departmentName = resultSet.getString("DEPARTMENT_NAME");
+
+            return new Employee(id, personName, personAge, departmentName, startDate, endDate);
+        }
         return null;
     }
 
@@ -64,27 +70,6 @@ public class EmployeeRepository {
         return List.copyOf(activeEmployees);
     }
 
-    public List<Employee> findActiveEmployeesByDepartment(String departmentName) {
-        List<Employee> activeEmployees = new ArrayList<>();
-
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
-            String sql = "SELECT E.*, P.NAME AS PERSON_NAME, P.AGE, D.NAME AS DEPARTMENT_NAME " +
-                    "FROM EMPLOYEE E " +
-                    "JOIN PERSON P ON E.PERSON_ID = P.ID " +
-                    "JOIN DEPARTMENT D ON E.DEPARTMENT_ID = D.ID " +
-                    "WHERE E.END_DATE IS NULL " +
-                    "AND D.NAME = ?";
-
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                preparedStatement.setString(1, departmentName);
-
-                mapperDB(activeEmployees, preparedStatement);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return List.copyOf(activeEmployees);
-    }
 
     private void mapperDB(List<Employee> activeEmployees, PreparedStatement preparedStatement) throws SQLException {
         try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -102,6 +87,4 @@ public class EmployeeRepository {
             }
         }
     }
-
-
 }

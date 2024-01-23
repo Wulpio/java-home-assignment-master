@@ -7,6 +7,8 @@ import com.wulp.assignment.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -43,25 +45,26 @@ public class EmployeeService {
     public List<EmployeeDto> getActiveEmployeeByEndDateIsNull() {
         List<Employee> activeEmployees = employeeRepository.findActiveEmployees();
 
-        return activeEmployees.stream()
-                .map(EmployeeService::convertToDTO)
-                .collect(Collectors.toList());
-
+        return activeEmployees.stream().map(EmployeeService::convertToDTO).collect(Collectors.toList());
     }
 
+    public Map<String, List<EmployeeDto>> getActiveEmployeesByDepartment() {
+        List<EmployeeDto> activeEmployees = getActiveEmployeeByEndDateIsNull();
+        Map<String, List<EmployeeDto>> employeesByDepartment = new HashMap<>();
 
-    public Map<String, List<EmployeeDto>> getActiveEmployeesByDepartment(String department) {
-        List<Employee> activeEmployees = employeeRepository.findActiveEmployeesByDepartment(department);
+        for (EmployeeDto employee : activeEmployees) {
+            String departmentName = employee.getDepartmentName();
 
-        List<EmployeeDto> activeEmployeesDTO =
-                activeEmployees.stream()
-                        .map(EmployeeService::convertToDTO)
-                        .collect(Collectors.toList());
+            if (employeesByDepartment.containsKey(departmentName)) {
+                employeesByDepartment.get(departmentName).add(employee);
 
-        Map<String, List<EmployeeDto>> departmentEmployeesMap = activeEmployeesDTO.stream()
-                .collect(Collectors.groupingBy(EmployeeDto::getDepartmentName));
-
-        return departmentEmployeesMap;
+            } else {
+                List<EmployeeDto> departmentEmployees = new ArrayList<>();
+                departmentEmployees.add(employee);
+                employeesByDepartment.put(departmentName, departmentEmployees);
+            }
+        }
+        return employeesByDepartment;
     }
 
 }

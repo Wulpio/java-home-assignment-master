@@ -8,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.annotation.Rollback;
 
 import java.sql.SQLException;
 import java.time.Instant;
@@ -16,7 +17,7 @@ import java.util.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
-
+@Rollback
 @ExtendWith(MockitoExtension.class)
 public class EmployeeServiceTest {
 
@@ -49,8 +50,6 @@ public class EmployeeServiceTest {
     public void GIVEN_Employee_WHEN_getEmployeeDTOId_THEN_return_null() throws SQLException {
         //GIVEN
         int employeeId = 100;
-        Employee employee =
-                new Employee(1, "Joker", 30, "Business", null, null);
         when(employeeRepository.findEmployeeById(employeeId)).thenReturn(null);
 
         //WHEN
@@ -82,7 +81,7 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void GIVEN_Employees_WHEN_getActiveEmployeeByEndDateIsNull_THEN_return_activeEmployees() throws SQLException {
+    public void GIVEN_Employees_WHEN_getActiveEmployeeByEndDateIsNull_THEN_return_activeEmployees() {
         //GIVEN
         Employee employee1 =
                 new Employee(1, "Joker", 30, "Business", Instant.now(), null);
@@ -103,16 +102,9 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void GIVEN_Employees_WHEN_getActiveEmployeeByEndDateIsNull_THEN_return_empty_employeesList() throws SQLException {
+    public void GIVEN_empty_db_WHEN_getActiveEmployeeByEndDateIsNull_THEN_return_empty_employeesList() {
         //GIVEN
-        Employee employee1 =
-                new Employee(1, "Joker", 30, "Business", null, Instant.now());
-        Employee employee2 =
-                new Employee(2, "Emir", 30, "Stock", null, Instant.now());
-        Employee employee3 =
-                new Employee(3, "Goer", 30, "Quality", null, Instant.now());
-
-        given(employeeRepository.findActiveEmployees()).willReturn(Collections.EMPTY_LIST);
+        given(employeeRepository.findActiveEmployees()).willReturn(Collections.emptyList());
 
         //WHEN
         List<EmployeeDto> employeeDToList = employeeService.getActiveEmployeeByEndDateIsNull();
@@ -120,11 +112,10 @@ public class EmployeeServiceTest {
         //THEN
         verify(employeeRepository, times(1)).findActiveEmployees();
         assertThat(employeeDToList).isEmpty();
-        assertThat(employeeDToList.size()).isEqualTo(0);
     }
 
     @Test
-    public void GIVEN_Employees_List_WHEN_getActiveEmployeesByDepartment_THEN_return_employees_Map() throws SQLException {
+    public void GIVEN_Employees_List_WHEN_getActiveEmployeesByDepartment_THEN_return_employees_Map()  {
         //GIVEN
         Employee employee1 =
                 new Employee(1, "Joker", 30, "Business", Instant.now(), null);

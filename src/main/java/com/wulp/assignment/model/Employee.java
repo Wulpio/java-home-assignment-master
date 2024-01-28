@@ -3,7 +3,8 @@ package com.wulp.assignment.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.Instant;
+import java.io.Serializable;
+import java.security.Timestamp;
 
 @Entity
 @Getter
@@ -12,37 +13,36 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "EMPLOYEE")
-public class Employee {
+@IdClass(Employee.class)
+public class Employee  implements Serializable {
 
     @Id
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "primary_sequence"
-    )
-    private Integer id;
+    )    Integer id;
 
+    @Id
     @ManyToOne
     @JoinColumn(name = "PERSON_ID")
     private Person person;
 
-    @Column
-    private String name;
-
-    @Column
-    private int age;
-
+    @Id
     @ManyToOne
     @JoinColumn(name = "DEPARTMENT_ID")
     private Department department;
 
-    @Column
-    private Instant startDate;
+    @Column(name = "START_DATE", nullable = false)
+    private Timestamp startDate;
 
-    @Column
-    private Instant endDate;
+    @Column(name = "END_DATE")
+    private Timestamp endDate;
 
     @ManyToOne
     @JoinColumn(name = "EMPLOYMENT_TYPE_ID", nullable = false)
     private EmploymentType employmentType;
 
+    public Employee(Integer personId, Integer departmentId) {
+
+    }
 }

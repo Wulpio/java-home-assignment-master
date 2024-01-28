@@ -4,11 +4,9 @@ import com.wulp.assignment.dto.EmployeeDto;
 import com.wulp.assignment.service.EmployeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -24,14 +22,15 @@ public class EmployeeController {
     }
 
     @GetMapping("/{personId}")
-    public ResponseEntity<EmployeeDto> fetchEmployeeByPersonId(@PathVariable Long personId) throws SQLException {
-        EmployeeDto employeeDTObyId = employeeService.getEmployeeDTObyId(personId);
+    public ResponseEntity<EmployeeDto> fetchEmployeeByPersonId(@PathVariable Integer personId, @RequestParam Integer departmentId )  {
+        EmployeeDto employeeDTObyId = employeeService.getEmployeeDTObyId(personId,departmentId);
         if (employeeDTObyId == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity<>(employeeDTObyId, HttpStatus.OK);
         }
     }
+
 
     @GetMapping("/active")
     public ResponseEntity<List<EmployeeDto>> fetchAllActiveEmployees() {

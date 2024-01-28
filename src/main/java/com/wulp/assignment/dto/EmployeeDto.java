@@ -3,8 +3,12 @@ package com.wulp.assignment.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import com.sun.istack.NotNull;
+import com.wulp.assignment.model.Department;
+import com.wulp.assignment.model.EmploymentType;
+import com.wulp.assignment.model.Person;
 import lombok.*;
 
+import java.security.Timestamp;
 import java.time.Instant;
 
 @AllArgsConstructor
@@ -16,7 +20,6 @@ import java.time.Instant;
 @EqualsAndHashCode
 
 public class EmployeeDto {
-
     @NotNull
     private String name;
 
@@ -24,13 +27,15 @@ public class EmployeeDto {
     private int age;
 
     @NotNull
-
     private String departmentName;
 
     @NotNull
-    private Instant startDate;
+    private String employmentTypeName;
 
-    private Instant endDate;
+    @NotNull
+    private Timestamp startDate;
+
+    private Timestamp endDate;
 
     @JsonIgnore
     public boolean isActive() {

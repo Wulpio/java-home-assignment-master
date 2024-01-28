@@ -4,7 +4,7 @@ import com.wulp.assignment.service.EmployeeId;
 import lombok.*;
 
 import javax.persistence.*;
-import java.security.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -13,26 +13,16 @@ import java.security.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "EMPLOYEE")
-public class Employee  {
+public class Employee {
 
     @EmbeddedId
-    private EmployeeId id;
-
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "PERSON_ID")
-    private Person person;
-
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "DEPARTMENT_ID")
-    private Department department;
+    private EmployeeId employeeId;
 
     @Column(name = "START_DATE", nullable = false)
-    private Timestamp startDate;
+    private LocalDateTime startDate;
 
     @Column(name = "END_DATE")
-    private Timestamp endDate;
+    private LocalDateTime endDate;
 
     @ManyToOne
     @JoinColumn(name = "EMPLOYMENT_TYPE_ID", nullable = false)

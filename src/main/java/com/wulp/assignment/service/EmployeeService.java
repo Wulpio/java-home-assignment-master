@@ -3,11 +3,13 @@ package com.wulp.assignment.service;
 import com.wulp.assignment.dto.EmployeeDto;
 import com.wulp.assignment.model.Employee;
 import com.wulp.assignment.repository.EmployeeRepository;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,14 +39,14 @@ public class EmployeeService {
     }
 
     public Employee findById(Integer personId, Integer departmentId) {
-        return employeeRepository.findByPersonIdAndDepartmentId(personId, departmentId);
+        return employeeRepository.findByEmployeeIdPersonIdAndEmployeeIdDepartmentId(personId, departmentId);
     }
 
     public static EmployeeDto convertToDTO(Employee employee) {
         EmployeeDto employeeDto = new EmployeeDto();
-        employeeDto.setName(employee.getPerson().getName());
-        employeeDto.setAge(employee.getPerson().getAge());
-        employeeDto.setDepartmentName(employee.getDepartment().getName());
+        employeeDto.setName(employee.getEmployeeId().getPerson().getName());
+        employeeDto.setAge(employee.getEmployeeId().getPerson().getAge());
+        employeeDto.setDepartmentName(employee.getEmployeeId().getDepartment().getName());
         employeeDto.setStartDate(employee.getStartDate());
         employeeDto.setEndDate(employee.getEndDate());
         return employeeDto;

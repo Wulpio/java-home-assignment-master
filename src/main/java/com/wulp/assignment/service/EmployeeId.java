@@ -1,10 +1,13 @@
 package com.wulp.assignment.service;
 
+import com.wulp.assignment.model.Department;
+import com.wulp.assignment.model.Person;
 import lombok.*;
 
 import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.io.Serializable;
-
 
 @Getter
 @Setter
@@ -12,9 +15,14 @@ import java.io.Serializable;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Embeddable
-public class EmployeeId  implements Serializable {
+public class EmployeeId implements Serializable {
 
-    private Integer personId;
-    private Integer departmentId;
+    @ManyToOne
+    @JoinColumn(name = "PERSON_ID")
+    private Person person;
+
+    @ManyToOne
+    @JoinColumn(name = "DEPARTMENT_ID")
+    private Department department;
 
 }

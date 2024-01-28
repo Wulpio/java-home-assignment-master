@@ -1,11 +1,13 @@
 package com.wulp.assignment.controller;
 
-import com.wulp.assignment.repository.EmployeeRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.is;
@@ -16,14 +18,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-//@AutoConfigureTestDatabase
+@AutoConfigureTestDatabase
+@Sql(scripts = {"classpath:data.sql"})
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class EmployeeControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
-    EmployeeRepository employeeRepository;
 
     @DisplayName("should retrieve single employee by ID")
     @Test

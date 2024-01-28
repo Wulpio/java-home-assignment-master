@@ -1,15 +1,10 @@
 package com.wulp.assignment.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import com.sun.istack.NotNull;
-import com.wulp.assignment.model.Department;
-import com.wulp.assignment.model.EmploymentType;
-import com.wulp.assignment.model.Person;
 import lombok.*;
 
-import java.security.Timestamp;
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,9 +28,9 @@ public class EmployeeDto {
     private String employmentTypeName;
 
     @NotNull
-    private Timestamp startDate;
+    private LocalDateTime startDate;
 
-    private Timestamp endDate;
+    private LocalDateTime endDate;
 
     @JsonIgnore
     public boolean isActive() {

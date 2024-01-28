@@ -21,8 +21,8 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping("/{personId}")
-    public ResponseEntity<EmployeeDto> fetchEmployeeByPersonId(@PathVariable Integer personId, @RequestParam Integer departmentId )  {
+    @GetMapping("/{personId}/{departmentId}")
+    public ResponseEntity<EmployeeDto> fetchEmployeeByPersonId(@PathVariable Integer personId,  @PathVariable Integer departmentId)  {
         EmployeeDto employeeDTObyId = employeeService.getEmployeeDTObyId(personId,departmentId);
         if (employeeDTObyId == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

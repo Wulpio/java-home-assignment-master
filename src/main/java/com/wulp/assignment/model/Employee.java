@@ -1,9 +1,9 @@
 package com.wulp.assignment.model;
 
+import com.wulp.assignment.service.EmployeeId;
 import lombok.*;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.security.Timestamp;
 
 @Entity
@@ -13,14 +13,10 @@ import java.security.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "EMPLOYEE")
-@IdClass(Employee.class)
-public class Employee  implements Serializable {
+public class Employee  {
 
-    @Id
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "primary_sequence"
-    )    Integer id;
+    @EmbeddedId
+    private EmployeeId id;
 
     @Id
     @ManyToOne
@@ -42,7 +38,4 @@ public class Employee  implements Serializable {
     @JoinColumn(name = "EMPLOYMENT_TYPE_ID", nullable = false)
     private EmploymentType employmentType;
 
-    public Employee(Integer personId, Integer departmentId) {
-
-    }
 }

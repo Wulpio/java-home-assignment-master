@@ -26,6 +26,8 @@ public class EmployeeService {
 //    }
 
 
+
+
     public EmployeeDto getEmployeeDTObyId(Integer personId, Integer departmentId) {
         Employee employee = findById(personId, departmentId);
         if (employee == null) {
@@ -35,7 +37,7 @@ public class EmployeeService {
     }
 
     public Employee findById(Integer personId, Integer departmentId) {
-        return employeeRepository.findById(new Employee(personId, departmentId)).orElse(null);
+        return employeeRepository.findByPersonIdAndDepartmentId(personId, departmentId);
     }
 
     public static EmployeeDto convertToDTO(Employee employee) {

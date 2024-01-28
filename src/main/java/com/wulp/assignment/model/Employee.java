@@ -1,73 +1,48 @@
 package com.wulp.assignment.model;
 
+import lombok.*;
 
+import javax.persistence.*;
 import java.time.Instant;
 
-
+@Entity
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "EMPLOYEE")
 public class Employee {
 
+    @Id
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "primary_sequence"
+    )
+    private Integer id;
+
+    @ManyToOne
+    @JoinColumn(name = "PERSON_ID")
+    private Person person;
+
+    @Column
     private String name;
+
+    @Column
     private int age;
-    private String departmentName;
+
+    @ManyToOne
+    @JoinColumn(name = "DEPARTMENT_ID")
+    private Department department;
+
+    @Column
     private Instant startDate;
+
+    @Column
     private Instant endDate;
 
-    public Employee(Integer id,String name, int age, String departmentName, Instant startDate, Instant endDate) {
-        this.name = name;
-        this.age = age;
-        this.departmentName = departmentName;
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
+    @ManyToOne
+    @JoinColumn(name = "EMPLOYMENT_TYPE_ID", nullable = false)
+    private EmploymentType employmentType;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getDepartmentName() {
-        return departmentName;
-    }
-
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
-    }
-
-    public Instant getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Instant startDate) {
-        this.startDate = startDate;
-    }
-
-    public Instant getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Instant endDate) {
-        this.endDate = endDate;
-    }
-
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", departmentName='" + departmentName + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                '}';
-    }
 }

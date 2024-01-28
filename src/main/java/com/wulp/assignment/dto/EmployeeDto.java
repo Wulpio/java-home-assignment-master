@@ -2,68 +2,39 @@ package com.wulp.assignment.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import com.sun.istack.NotNull;
+import lombok.*;
+
 import java.time.Instant;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
+
 public class EmployeeDto {
+
+    @NotNull
     private String name;
+
+    @NotNull
     private int age;
+
+    @NotNull
+
     private String departmentName;
+
+    @NotNull
     private Instant startDate;
+
     private Instant endDate;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getDepartmentName() {
-        return departmentName;
-    }
-
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
-    }
-
-    public Instant getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Instant startDate) {
-        this.startDate = startDate;
-    }
-
-    public Instant getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Instant endDate) {
-        this.endDate = endDate;
-    }
 
     @JsonIgnore
     public boolean isActive() {
         return endDate == null;
     }
 
-    @Override
-    public String toString() {
-        return "EmployeeDto{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", departmentName='" + departmentName + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                '}';
-    }
 }

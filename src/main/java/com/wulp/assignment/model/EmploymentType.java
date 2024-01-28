@@ -1,29 +1,27 @@
 package com.wulp.assignment.model;
 
+import lombok.*;
+
+import javax.persistence.*;
+
+@Entity
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "EMPLOYMENT_TYPE")
 public class EmploymentType {
 
-    private Long id;
+    @Id
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "primary_sequence"
+    )
+    private Integer id;
 
-    private  String name;
+    @Column
+    private String name;
 
-    public EmploymentType(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

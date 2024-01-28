@@ -24,7 +24,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/{personId}")
-    public ResponseEntity<EmployeeDto> fetchEmployeeByPersonId(@PathVariable Integer personId) throws SQLException {
+    public ResponseEntity<EmployeeDto> fetchEmployeeByPersonId(@PathVariable Long personId) throws SQLException {
         EmployeeDto employeeDTObyId = employeeService.getEmployeeDTObyId(personId);
         if (employeeDTObyId == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

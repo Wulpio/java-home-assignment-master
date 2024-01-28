@@ -1,16 +1,12 @@
 package com.wulp.assignment.service;
 
-
 import com.wulp.assignment.dto.EmployeeDto;
 import com.wulp.assignment.model.Employee;
 import com.wulp.assignment.repository.EmployeeRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,14 +18,12 @@ public class EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
-    public EmployeeDto getEmployeeDTObyId(Integer id) throws SQLException {
-        Employee employee = employeeRepository.findEmployeeById(id);
-        if (employee == null) {
-            return null;
-        } else {
-            return convertToDTO(employee);
-        }
+    public EmployeeDto getEmployeeDTObyId(Long id) {
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("The Employee with ID " + id + " Not Found."));
+        return convertToDTO(employee);
     }
+
 
     static EmployeeDto convertToDTO(Employee employee) {
         EmployeeDto employeeDto = new EmployeeDto();
@@ -42,11 +36,13 @@ public class EmployeeService {
     }
 
     public List<EmployeeDto> getActiveEmployeeByEndDateIsNull() {
-        List<Employee> activeEmployees = employeeRepository.findActiveEmployees();
-
-        return activeEmployees.stream()
+        List<Employee> employees = employeeRepository.findAll(Sort.by("id"));
+        List<EmployeeDto> activeEmployees = employees.stream()
+                .filter(employee -> employee.getEndDate() == null)
                 .map(EmployeeService::convertToDTO)
                 .collect(Collectors.toList());
+
+        return activeEmployees;
     }
 
     public Map<String, List<EmployeeDto>> getActiveEmployeesByDepartment() {

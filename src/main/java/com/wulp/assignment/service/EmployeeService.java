@@ -30,16 +30,16 @@ public class EmployeeService {
 
 
 
-    public EmployeeDto getEmployeeDTObyId(Integer personId, Integer departmentId) {
-        Employee employee = findById(personId, departmentId);
+    public EmployeeDto getEmployeeDTObyId(Integer personId) {
+        Employee employee = findById(personId);
         if (employee == null) {
-            throw new EntityNotFoundException("Employee with ID (" + personId + ", " + departmentId + ") not found.");
+            throw new EntityNotFoundException("Employee with ID (" + personId + ") not found.");
         }
         return convertToDTO(employee);
     }
 
-    public Employee findById(Integer personId, Integer departmentId) {
-        return employeeRepository.findByEmployeeIdPersonIdAndEmployeeIdDepartmentId(personId, departmentId);
+    public Employee findById(Integer personId) {
+        return employeeRepository.findByEmployeeIdPersonId(personId);
     }
 
     public static EmployeeDto convertToDTO(Employee employee) {

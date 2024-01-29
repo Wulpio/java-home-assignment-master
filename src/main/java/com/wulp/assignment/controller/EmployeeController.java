@@ -22,9 +22,9 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping("/{personId}/{departmentId}")
-    public ResponseEntity<EmployeeDto> fetchEmployeeByPersonId(@PathVariable Integer personId,  @PathVariable Integer departmentId)  {
-        EmployeeDto employeeDTObyId = employeeService.getEmployeeDTObyId(personId,departmentId);
+    @GetMapping("/{personId}")
+    public ResponseEntity<EmployeeDto> fetchEmployeeByPersonId(@PathVariable Integer personId)  {
+        EmployeeDto employeeDTObyId = employeeService.getEmployeeDTObyId(personId);
         if (employeeDTObyId == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {

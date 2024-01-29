@@ -7,7 +7,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.is;
@@ -16,10 +15,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureTestDatabase
-@Sql(scripts = {"classpath:data.sql"})
+//@Sql(scripts = {"classpath:data.sql"})
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class EmployeeControllerTest {
 
@@ -29,7 +29,7 @@ class EmployeeControllerTest {
     @DisplayName("should retrieve single employee by ID")
     @Test
     public void testRetrievingOfSingleEmployee() throws Exception {
-        mockMvc.perform(get("/employee/1")).andDo(print()).andExpect(status().isOk())
+        mockMvc.perform(get("/employee/1/1")).andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is("Hasnain Frame")));
     }
 

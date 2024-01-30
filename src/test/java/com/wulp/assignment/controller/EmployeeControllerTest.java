@@ -29,7 +29,7 @@ class EmployeeControllerTest {
     @DisplayName("should retrieve single employee by ID")
     @Test
     public void testRetrievingOfSingleEmployee() throws Exception {
-        mockMvc.perform(get("/employee/1/1")).andDo(print()).andExpect(status().isOk())
+        mockMvc.perform(get("/employee/1")).andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is("Hasnain Frame")));
     }
 

@@ -3,8 +3,6 @@ package com.wulp.assignment.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-
-
 @Entity
 @Getter
 @Setter
@@ -23,6 +21,5 @@ public class EmploymentType {
 
     @Column
     private String name;
-
 
 }

@@ -23,7 +23,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/{personId}")
-    public ResponseEntity<EmployeeDto> fetchEmployeeByPersonId(@PathVariable Integer personId)  {
+    public ResponseEntity<EmployeeDto> fetchEmployeeByPersonId(@PathVariable Integer personId) {
         EmployeeDto employeeDTObyId = employeeService.getEmployeeDTObyId(personId);
         if (employeeDTObyId == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

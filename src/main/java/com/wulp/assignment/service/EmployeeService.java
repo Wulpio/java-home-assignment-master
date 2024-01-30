@@ -3,9 +3,10 @@ package com.wulp.assignment.service;
 import com.wulp.assignment.dto.EmployeeDto;
 import com.wulp.assignment.model.Employee;
 import com.wulp.assignment.repository.EmployeeRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,12 +29,10 @@ public class EmployeeService {
 //    }
 
 
-
-
     public EmployeeDto getEmployeeDTObyId(Integer personId) {
         Employee employee = findById(personId);
         if (employee == null) {
-            throw new EntityNotFoundException("Employee with ID (" + personId +  ") not found.");
+            throw new EntityNotFoundException("Employee with ID (" + personId + ") not found.");
         }
         return convertToDTO(employee);
     }
@@ -48,6 +47,7 @@ public class EmployeeService {
         employeeDto.setAge(employee.getEmployeeId().getPerson().getAge());
         employeeDto.setDepartmentName(employee.getEmployeeId().getDepartment().getName());
         employeeDto.setStartDate(employee.getStartDate());
+        employeeDto.setEmploymentTypeName(employee.getEmploymentType().getName());
         employeeDto.setEndDate(employee.getEndDate());
         return employeeDto;
     }

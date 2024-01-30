@@ -1,9 +1,10 @@
 package com.wulp.assignment.model;
 
 import com.wulp.assignment.service.EmployeeId;
+import jakarta.persistence.*;
 import lombok.*;
 
-import javax.persistence.*;
+
 import java.time.LocalDateTime;
 
 @Entity

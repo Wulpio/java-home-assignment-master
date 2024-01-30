@@ -2,11 +2,12 @@ package com.wulp.assignment.service;
 
 import com.wulp.assignment.model.Department;
 import com.wulp.assignment.model.Person;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.*;
 
-import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+
 import java.io.Serializable;
 
 @Getter

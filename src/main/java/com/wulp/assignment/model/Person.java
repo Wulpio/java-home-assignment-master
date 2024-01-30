@@ -1,8 +1,9 @@
 package com.wulp.assignment.model;
 
+import jakarta.persistence.*;
 import lombok.*;
 
-import javax.persistence.*;
+
 
 @Entity
 @Getter

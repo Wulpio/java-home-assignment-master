@@ -1,8 +1,9 @@
 package com.wulp.assignment.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.istack.NotNull;
+
 import lombok.*;
+import org.antlr.v4.runtime.misc.NotNull;
 
 import java.time.LocalDateTime;
 

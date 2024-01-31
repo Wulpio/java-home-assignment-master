@@ -36,7 +36,7 @@ public class EmployeeRepositoryTest {
     @Test
     void GIVEN_employee_WHEN_findEmployeeById_THEN_return_employee_Object_find_By_Id() {
         //GIVEN
-        Person person = new Person(1, "Jehny", 32);
+        Person person = new Person(1, "Jenny", 32);
         personRepository.save(person);
 
         Department depart = new Department(1, "IT");

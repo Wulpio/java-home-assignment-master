@@ -16,6 +16,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @EqualsAndHashCode
 @Embeddable
+@ToString
 public class EmployeeId implements Serializable {
 
     @ManyToOne

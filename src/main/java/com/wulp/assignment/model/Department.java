@@ -1,15 +1,14 @@
 package com.wulp.assignment.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "DEPARTMENT")
 public class Department {
 
@@ -22,6 +21,5 @@ public class Department {
 
     @Column
     private String name;
-
 
 }

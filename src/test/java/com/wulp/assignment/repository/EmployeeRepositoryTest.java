@@ -1,13 +1,18 @@
 package com.wulp.assignment.repository;
 
+import com.wulp.assignment.model.Department;
 import com.wulp.assignment.model.Employee;
-import org.junit.jupiter.api.BeforeEach;
+import com.wulp.assignment.model.EmploymentType;
+import com.wulp.assignment.model.Person;
+import com.wulp.assignment.service.EmployeeId;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.DirtiesContext;
+
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,26 +24,39 @@ public class EmployeeRepositoryTest {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    @Autowired
+    private PersonRepository personRepository;
+
+    @Autowired
+    private DepartmentRepository departmentRepository;
+
+    @Autowired
+    private EmploymentTypeRepository employmentTypeRepository;
+
     @Test
     void GIVEN_employee_WHEN_findEmployeeById_THEN_return_employee_Object_find_By_Id() {
         //GIVEN
-        assertThat(employeeRepository.findAll()).isEmpty();
-//        Employee employee = new Employee();
-//        Person  person  = new Person(1,"Jack",32);
-//        employeeRepository.save(employee);
+        Person person = new Person(1, "Jehny", 32);
+        personRepository.save(person);
 
-        //WHEN
-        Employee findEmployee = employeeRepository.findByEmployeeIdPersonId(1);
+        Department depart = new Department(1, "IT");
+        departmentRepository.save(depart);
 
-        assertThat(findEmployee).isNull();
+        EmploymentType empType = new EmploymentType(1, "FullShifts");
+        employmentTypeRepository.save(empType);
 
-//        //THEN
-//        assertThat(returnedEmployee).isNotNull();
-//        assertThat(returnedEmployee.getName()).isEqualTo("John Doe");
-//        assertThat(returnedEmployee.getAge()).isEqualTo(30);
-//        assertThat(returnedEmployee.getDepartmentName()).isEqualTo("IT");
-//        assertThat(returnedEmployee.getStartDate()).isEqualTo("2021-12-31T23:00:00Z");
-//        assertThat(returnedEmployee.getEndDate()).isEqualTo("2021-12-31T23:00:00Z");
+        EmployeeId empId = new EmployeeId(person, depart);
+
+        Employee employee = new Employee(empId, LocalDateTime.now(), null, empType);
+        employeeRepository.save(employee);
+
+        // WHEN
+        Employee foundEmployee = employeeRepository.findByEmployeeIdPersonId(1);
+
+        // THEN
+        assertThat(foundEmployee).isNotNull();
+        assertThat(foundEmployee.getEmployeeId().getPerson().getId()).isEqualTo(1);
+        assertThat(foundEmployee.getEmployeeId().getPerson()).isSameAs(person);
     }
 
     @Test

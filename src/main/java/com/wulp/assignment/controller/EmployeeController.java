@@ -4,6 +4,7 @@ import com.wulp.assignment.dto.EmployeeDto;
 import com.wulp.assignment.service.EmployeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,7 +37,7 @@ public class EmployeeController {
     @GetMapping("/active")
     public ResponseEntity<List<EmployeeDto>> fetchAllActiveEmployees() {
         List<EmployeeDto> activeEmployees = employeeService.getActiveEmployeeByEndDateIsNull();
-        if (activeEmployees.isEmpty()) {
+        if (CollectionUtils.isEmpty(activeEmployees)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity<>(activeEmployees, HttpStatus.OK);
@@ -47,7 +48,7 @@ public class EmployeeController {
     @GetMapping("/active/by-department")
     public ResponseEntity<Map<String, List<EmployeeDto>>> fetchActiveEmployeesByDepartment() {
         Map<String, List<EmployeeDto>> activeEmployees = employeeService.getActiveEmployeesByDepartment();
-        if (activeEmployees.isEmpty()) {
+        if (CollectionUtils.isEmpty(activeEmployees)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity<>(activeEmployees, HttpStatus.OK);

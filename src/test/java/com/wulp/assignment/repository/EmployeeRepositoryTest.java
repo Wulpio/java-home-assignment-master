@@ -13,37 +13,38 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.DirtiesContext;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
 public class EmployeeRepositoryTest {
 
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    @Autowired
-    private PersonRepository personRepository;
+    @Test
+    void GIVEN_incorrect_personId_personId_WHEN_findEmployeeByIdPersonId_THEN_return_null() {
+        //GIVEN
+        int personId = -1000;
+        assertThat(employeeRepository.findAll()).isNotEmpty();
 
-    @Autowired
-    private DepartmentRepository departmentRepository;
+        // WHEN
+        Employee notFoundEmployee = employeeRepository.findByEmployeeIdPersonId(personId);
 
-    @Autowired
-    private EmploymentTypeRepository employmentTypeRepository;
+        // THEN
+        assertThat(notFoundEmployee).isNull();
+        assertThat(employeeRepository.findAll()).isNotEmpty();
+    }
 
     @Test
-    void GIVEN_employee_WHEN_findEmployeeById_THEN_return_employee_Object_find_By_Id() {
+    void GIVEN_employee_WHEN_findEmployeeByIdPersonId_THEN_return_employee_Object_find_By_Id() {
         //GIVEN
         Person person = new Person(1, "Jenny", 32);
-        personRepository.save(person);
-
         Department depart = new Department(1, "IT");
-        departmentRepository.save(depart);
-
         EmploymentType empType = new EmploymentType(1, "FullShifts");
-        employmentTypeRepository.save(empType);
 
         EmployeeId empId = new EmployeeId(person, depart);
 
@@ -51,7 +52,7 @@ public class EmployeeRepositoryTest {
         employeeRepository.save(employee);
 
         // WHEN
-        Employee foundEmployee = employeeRepository.findByEmployeeIdPersonId(1);
+        Employee foundEmployee = employeeRepository.findByEmployeeIdPersonId(person.getId());
 
         // THEN
         assertThat(foundEmployee).isNotNull();
@@ -60,7 +61,60 @@ public class EmployeeRepositoryTest {
     }
 
     @Test
-    void GIVEN_employees_WHEN_findEmployees_THEN_return_List_active_employees_which_endDate_is_null() {
+    void GIVEN_employees_WHEN_findEmployeeByIdPersonId_THEN_return_correct_object() {
+        //GIVEN
+        assertThat(employeeRepository.findAll()).hasSize(20);
 
+        //WHEN
+        Employee foundEmployee = employeeRepository.findByEmployeeIdPersonId(5);
+
+        //THEN
+        assertThat(foundEmployee.getEmployeeId().getPerson().getName()).isEqualTo("Kieran Hayden");
     }
+
+    @Test
+    void GIVEN_employee_WHEN_save_THEN_return_saved_employee() {
+        //GIVEN
+        employeeRepository.deleteAll();
+        Person person = new Person(1, "Gilian", 32);
+        Department depart = new Department(1, "IT");
+        EmploymentType empType = new EmploymentType(1, "FullShifts");
+        EmployeeId empId = new EmployeeId(person, depart);
+
+        Employee employee = new Employee(empId, LocalDateTime.now(), null, empType);
+
+        //WHEN
+        Employee savedEmployee = employeeRepository.save(employee);
+
+        //THEN
+        assertThat(savedEmployee).isNotNull();
+        assertThat(savedEmployee.getEmployeeId().getPerson().getName()).isEqualTo("Gilian");
+        assertThat(savedEmployee.getEmployeeId().getPerson().getId()).isGreaterThan(0);
+    }
+
+    @Test
+    void GIVEN_employees_WHEN_findAll_THEN_return_list_of_employees() {
+        //GIVEN
+        assertThat(employeeRepository.findAll()).hasSize(20);
+
+        //WHEN
+        List<Employee> employeesList = employeeRepository.findAll();
+
+        //THEN
+        assertThat(employeesList).isNotNull();
+        assertThat(employeesList).hasSize(20);
+    }
+
+    @Test
+    void GIVEN_employees_WHEN_deleteAll_THEN_return_empty_List() {
+        //GIVEN
+        assertThat(employeeRepository.findAll()).hasSize(20);
+
+        //WHEN
+        employeeRepository.deleteAll();
+
+        //THEN
+        assertThat(employeeRepository.findAll()).isEmpty();
+    }
+
 }

@@ -3,6 +3,7 @@ package com.wulp.assignment.service;
 import com.wulp.assignment.dto.EmployeeDto;
 import com.wulp.assignment.model.Employee;
 import com.wulp.assignment.repository.EmployeeRepository;
+
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -21,13 +22,6 @@ public class EmployeeService {
     public EmployeeService(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
-
-//    public EmployeeDto getEmployeeDTObyId(Long id) {
-//        Employee employee = employeeRepository.findById(id)
-//                .orElseThrow(() -> new RuntimeException("The Employee with ID " + id + " Not Found."));
-//        return convertToDTO(employee);
-//    }
-
 
     public EmployeeDto getEmployeeDTObyId(Integer personId) {
         Employee employee = findById(personId);

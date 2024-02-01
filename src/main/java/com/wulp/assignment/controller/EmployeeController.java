@@ -54,5 +54,4 @@ public class EmployeeController {
             return new ResponseEntity<>(activeEmployees, HttpStatus.OK);
         }
     }
-
 }
